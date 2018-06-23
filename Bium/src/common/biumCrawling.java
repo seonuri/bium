@@ -1,4 +1,4 @@
-package crawling;
+package common;
 
 import java.io.IOException;
 
@@ -15,15 +15,20 @@ public class biumCrawling {
 			String complet_url = url+num;
 			
 			Document bium = Jsoup.connect(complet_url).get();
-			Elements biumImage = bium.select("ul.bxslider > li > img");
-			num++;
-			
-			for (Element element : biumImage) {
-				String image = element.attr("src");
+			Elements biumInfo = bium.select("div.pure-g");
+
+			for (Element element : biumInfo) {
+				String image = element.select("ul.bxslider > li > img").attr("src");
+				String bname = element.select("li.name > h2 > span").text();
+				String bgram = element.select("em.option").text();
+				String sal = element.select("span.num").text();
 				System.out.println("===="+num+"====");
 				System.out.println(image);
+				System.out.println(bname);
+				System.out.println(bgram);
+				System.out.println(sal);
 			}
-			
+			num++;
 		}
 			
 	}
